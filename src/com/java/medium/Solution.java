@@ -1,27 +1,22 @@
 package com.java.medium;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Solution {
 	/*
-	 * Given an array arr[] denoting heights of N towers and a positive integer K,
-	 *  you have to modify the height of each tower either by increasing or decreasing them by K only once.
-Find out what could be the possible minimum difference of the height of shortest and longest towers after 
-you have modified each tower.
+	 Given an array A of N elements. Find the majority element in the array.
+	  A majority element in an array A of size N is an element that appears more than N/2 times in the array.
 	*/
 	
-	int getMinDiff(int[] arr, int n, int k) {
-        // code here
-        Arrays.sort(arr);
-        int max = Integer.MIN_VALUE;
-        int min = Integer.MAX_VALUE;
-        int diff = arr[n-1]-arr[0];
-        for(int i=1;i<n;i++){
-            max=Math.max(arr[i-1]+k,arr[n-1]-k);
-            min = Math.min(arr[0]+k,arr[i]-k);
-            diff=Math.min(diff,max-min);
-        }
-        return diff;
-        
+	static int majorityElement(int a[], int size)
+    {
+        // your code here
+        HashMap<Integer,Integer> hsh = new HashMap<>();
+        for(int i=0;i<size;i++){
+            hsh.put(a[i],hsh.getOrDefault(a[i],0)+1);
+            if(hsh.get(a[i])>(size/2)) return a[i];
+        } 
+        return -1;
     }
 }
