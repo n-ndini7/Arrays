@@ -1,22 +1,28 @@
 package com.java.medium;
 
-import java.util.Arrays;
-import java.util.HashMap;
-
 public class Solution {
 	/*
-	 Given an array A of N elements. Find the majority element in the array.
-	  A majority element in an array A of size N is an element that appears more than N/2 times in the array.
+	Given a sorted array of positive integers. Your task is to rearrange  the array elements alternatively 
+	i.e first element should be max value, 
+	second should be min value, third should be second max, fourth should be second min and so on.
 	*/
 	
-	static int majorityElement(int a[], int size)
-    {
-        // your code here
-        HashMap<Integer,Integer> hsh = new HashMap<>();
-        for(int i=0;i<size;i++){
-            hsh.put(a[i],hsh.getOrDefault(a[i],0)+1);
-            if(hsh.get(a[i])>(size/2)) return a[i];
-        } 
-        return -1;
+	public static void rearrange(long arr[], int n){
+        // Your code here
+        if(n==1) return;
+        long[] arr1 = new long[n];
+        int p=n-1, idx=1;
+        for(int i =1;i<n;){
+            arr1[i-1]=arr[p--];
+            arr1[i]=arr[i-idx];
+            i=i+2;
+            idx++;
+            if(n%2==1&&i>n-1){
+                arr1[n-1]=arr[n/2];
+                break;
+            }
+            
+        }
+        System.arraycopy(arr1,0,arr,0,n);
     }
 }

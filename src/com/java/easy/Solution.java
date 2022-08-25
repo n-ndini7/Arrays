@@ -4,26 +4,22 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 
-/*
- * Given an array of distinct integers.
- *  The task is to count all the triplets such that sum of two elements equals the third element.
+/*Given an array of size N-1 such that it only contains distinct 
+ * integers in the range of 1 to N. Find the missing element.
  */
 
 public class Solution {
 
-	int countTriplet(int arr[], int n) {
-        // code here
-        int c=0;
-        TreeSet<Integer> tree = new TreeSet<>();
-        for(Integer i: arr){
-            tree.add(i);
-        }
-        for(int i =0;i<n;i++){
-            for(int j=0;j<i;j++){
-                if(tree.contains(arr[j]+arr[i]))c++;
-            }
-        }
-        return c;
-    }
+	 int MissingNumber(int array[], int n) {
+	        // Your Code Here
+	        // Using hashing
+	        int[] hsh = new int[n+1];
+	        for(int i =0;i<n-1;i++) 
+	            {hsh[array[i]-1]++;}
+	        for(int i=0;i<hsh.length;i++){
+	            if(hsh[i]==0) return i+1;
+	        }
+	        return -1;
+	    }
 	
 }
