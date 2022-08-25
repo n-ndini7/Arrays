@@ -6,20 +6,24 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-	public static void main (String[] args) throws IOException
-	 {
-	 
-	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
-       int t = Integer.parseInt(br.readLine()); 
-
-       while(t-- > 0){
-           int size = Integer.parseInt(br.readLine());
-           String[] arrStr = ((String)br.readLine()).split("\\s+");
-           int[] arr= new int[size];
-           for(int i = 0;i<size;i++){
-               arr[i] = Integer.parseInt(arrStr[i]);
-           }
-           System.out.println(new Solution().minJumps(arr));
-       }
-	 }
+	public static void main (String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int t = Integer.parseInt(br.readLine().trim()); //Inputting the testcases
+		while(t-->0){
+		    //size of array
+		    int n = Integer.parseInt(br.readLine().trim());
+		    int arr[] = new int[n];
+		    String inputLine[] = br.readLine().trim().split(" ");
+		    
+		    //adding elements
+		    for(int i=0; i<n; i++){
+		        arr[i] = Integer.parseInt(inputLine[i]);
+		    }
+		    
+		    Solution obj = new Solution();
+		    
+		    //calling maxSubarraySum() function
+		    System.out.println(obj.maxSubarraySum(arr, n));
+		}
+	}
 }
