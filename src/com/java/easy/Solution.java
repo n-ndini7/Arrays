@@ -1,31 +1,29 @@
 package com.java.easy;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
+
+
+/*
+ * Given an array of distinct integers.
+ *  The task is to count all the triplets such that sum of two elements equals the third element.
+ */
 
 public class Solution {
 
-	static ArrayList<Integer> subarraySum(int[] arr, int n, int s) 
-    {
-        // Your code here
-        //Arrays.sort(arr);
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        int idx =0, sum =0;
-        boolean flag = false;
-        for(int i=idx;i<n;i++){
-            sum+=arr[i];
-            if(sum==s){
-                list.add(idx+1);
-                list.add(i+1);
-                flag = true;
-                break;
-            }
-            if(sum>s){
-                i = idx++;
-                sum=0;
+	int countTriplet(int arr[], int n) {
+        // code here
+        int c=0;
+        TreeSet<Integer> tree = new TreeSet<>();
+        for(Integer i: arr){
+            tree.add(i);
+        }
+        for(int i =0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(tree.contains(arr[j]+arr[i]))c++;
             }
         }
-        if(flag) return list;
-        else {list.add(-1); return list;}
+        return c;
     }
 	
 }
