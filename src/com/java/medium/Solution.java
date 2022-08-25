@@ -1,25 +1,27 @@
 package com.java.medium;
 
+import java.util.Arrays;
+
 public class Solution {
 	/*
-	 * Given an array Arr[] of N integers. Find the
-	 *  contiguous sub-array(containing at least one number) 
-	 *  which has the maximum sum and return its sum.	 */
+	 * Given an array arr[] denoting heights of N towers and a positive integer K,
+	 *  you have to modify the height of each tower either by increasing or decreasing them by K only once.
+Find out what could be the possible minimum difference of the height of shortest and longest towers after 
+you have modified each tower.
+	*/
 	
-	// KANDANE's Algorithm
-	// arr: input array
-    // n: size of array
-    //Function to find the sum of contiguous subarray with maximum sum.
-    long maxSubarraySum(int arr[], int n){
-        // Using Kandane's algorithm
-        int max=Integer.MIN_VALUE;
-        int sum=0;
-        for(int i =0;i<n;i++){
-            sum+=arr[i];
-            if(max<sum)max=sum;
-            if(sum<0) sum=0;
+	int getMinDiff(int[] arr, int n, int k) {
+        // code here
+        Arrays.sort(arr);
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        int diff = arr[n-1]-arr[0];
+        for(int i=1;i<n;i++){
+            max=Math.max(arr[i-1]+k,arr[n-1]-k);
+            min = Math.min(arr[0]+k,arr[i]-k);
+            diff=Math.min(diff,max-min);
         }
-        if(max==0) max=-1;
-        return max;
+        return diff;
+        
     }
 }
