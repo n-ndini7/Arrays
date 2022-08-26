@@ -2,27 +2,51 @@ package com.java.medium;
 
 public class Solution {
 	/*
-	Given a sorted array of positive integers. Your task is to rearrange  the array elements alternatively 
-	i.e first element should be max value, 
-	second should be min value, third should be second max, fourth should be second min and so on.
+	Given an array of integers. Find the Inversion Count in the array. 
+	Inversion Count: For an array, inversion count indicates how far (or close) 
+	the array is from being sorted. If array is already sorted then the inversion count is 0. 
+	If an array is sorted in the reverse order then the inversion count is the maximum. 
+	Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
 	*/
 	
-	public static void rearrange(long arr[], int n){
-        // Your code here
-        if(n==1) return;
-        long[] arr1 = new long[n];
-        int p=n-1, idx=1;
-        for(int i =1;i<n;){
-            arr1[i-1]=arr[p--];
-            arr1[i]=arr[i-idx];
-            i=i+2;
-            idx++;
-            if(n%2==1&&i>n-1){
-                arr1[n-1]=arr[n/2];
-                break;
-            }
-            
+	static long inversionCount(long arr[], long N)
+    {
+        // Your Code Here
+        long[] temp = new long[(int)N];
+        long c = sort(arr,temp,0,(int)N-1);
+        return c;
+    }
+    static long merge(long[] arr, long[] temp, int l , int mid,int r){
+        int i=l, j =mid, k=l;
+        long c=0;
+        while(i<=mid-1&&j<=r){
+             if(arr[i]<=arr[j]){
+                 temp[k++]=arr[i++];
+             } else{
+                 temp[k++]=arr[j++];
+                 c+=(mid-i);
+             }
         }
-        System.arraycopy(arr1,0,arr,0,n);
+        while(i<=mid-1){
+            temp[k++]=arr[i++];
+        }
+        while(j<=r){
+            temp[k++]=arr[j++];
+        }
+        for(int p =l;p<=r;p++){
+            arr[p]=temp[p];
+        }
+        return c;
+    }
+    static long sort(long[] arr, long[] temp, int l, int r){
+        long c= 0;
+        int mid=0;
+        if(l<r){
+            mid = (l+r)>>1;
+            c+= sort(arr,temp,l,mid);
+            c+= sort(arr,temp,mid+1,r);
+            c+=merge(arr,temp,l,mid+1,r);
+        }
+        return c;
     }
 }
