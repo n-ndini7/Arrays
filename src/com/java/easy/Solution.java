@@ -1,25 +1,29 @@
 package com.java.easy;
 
+import java.util.ArrayList;
+import java.util.Stack;
 
-/*Given an array A of n positive numbers. 
- * The task is to find the first Equilibium Point in the array. 
-	Equilibrium Point in an array is a position such that the sum of elements before it
- is equal to the sum of elements after it.
+/*Given an array A of positive integers. Your task is to find the leaders
+ *  in the array. An element of array is leader if it is greater than or equal
+ *  to all the elements to its right side. The rightmost element is always a leader. 
  */
 
 public class Solution {
 
-	public static int equilibriumPoint(long arr[], int n) {
-
-        long sum=0;
-        long s2=0;
-        if(n==1) return 1;
-        for(int i=0;i<n;i++)sum+=arr[i];
-        for(int i =0;i<n;i++){
-            s2+=arr[i];
-            if(s2-arr[i]==sum-s2) return i+1;
+	static ArrayList<Integer> leaders(int arr[], int n){
+        // Your code here
+        ArrayList<Integer> list = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        st.push(arr[n-1]);
+        for(int i=n-2;i>=0;i--){
+            if(arr[i]>=st.peek()){
+                st.push(arr[i]);
+            }
         }
-        return -1;
+        while(st.isEmpty()==false){
+            list.add(st.pop());
+        }
+        return list;
     }
 	
 }
