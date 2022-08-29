@@ -1,25 +1,29 @@
 package com.java.easy;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Stack;
 
-
-/*Given an array of size N-1 such that it only contains distinct 
- * integers in the range of 1 to N. Find the missing element.
+/*Given an array A of positive integers. Your task is to find the leaders
+ *  in the array. An element of array is leader if it is greater than or equal
+ *  to all the elements to its right side. The rightmost element is always a leader. 
  */
 
 public class Solution {
 
-	 int MissingNumber(int array[], int n) {
-	        // Your Code Here
-	        // Using hashing
-	        int[] hsh = new int[n+1];
-	        for(int i =0;i<n-1;i++) 
-	            {hsh[array[i]-1]++;}
-	        for(int i=0;i<hsh.length;i++){
-	            if(hsh[i]==0) return i+1;
-	        }
-	        return -1;
-	    }
+	static ArrayList<Integer> leaders(int arr[], int n){
+        // Your code here
+        ArrayList<Integer> list = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        st.push(arr[n-1]);
+        for(int i=n-2;i>=0;i--){
+            if(arr[i]>=st.peek()){
+                st.push(arr[i]);
+            }
+        }
+        while(st.isEmpty()==false){
+            list.add(st.pop());
+        }
+        return list;
+    }
 	
 }
